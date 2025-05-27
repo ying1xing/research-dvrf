@@ -107,12 +107,7 @@ public:
       VerificationKey rhs, lhs;
       lhs = this->g__s_ij_[i][rank];
       rhs = this->computeRHS(rank, this->A_ik_[i]);
-      if (lhs == rhs) {
-        Pairing e1, e2;
-        e1.map(this->G, B_i_[i]);
-        e2.map(this->A_ik_[i][0], g2_);
-        return e1 == e2;
-      }
+      return lhs == rhs;
     }
     return false;
   }
@@ -139,11 +134,7 @@ public:
       res.first = lhs == rhs;
       lhs.mult(this->G, s);
       rhs = this->computeRHS(fromIndex, this->A_ik_[nodeIndex]);
-
-      Pairing e1, e2;
-      e1.map(this->G, B_i_[nodeIndex]);
-      e2.map(this->A_ik_[nodeIndex][0], g2_);
-      res.second = ((lhs == rhs) and (e1 == e2));
+      res.second = (lhs == rhs);
     }
     return res;
   }
